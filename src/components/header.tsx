@@ -2,40 +2,42 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Menu, X } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { theme } = useTheme()
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+  const handleScroll = useCallback(() => {
+    setIsScrolled(window.scrollY > 10)
   }, [])
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [handleScroll])
+
   const navItems = [
-    { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/projects", label: "Projects" },
+    { href: "/achievements", label: "Achievements" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ]
 
   return (
     <header 
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+      className={cn(
+        "fixed top-0 z-50 w-full transition-all duration-300",
         isScrolled 
-          ? "bg-background/80 backdrop-blur-md border-b shadow-lg" 
+          ? "glass-card border-b shadow-lg" 
           : "bg-transparent"
-      }`}
+      )}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between" style={{ height: '90px' }}>
@@ -62,7 +64,6 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative text-sm font-medium text-foreground/80 hover:text-foreground transition-colors group"
               >
                 {item.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-secondary transition-all duration-300 group-hover:w-full"></span>
@@ -80,6 +81,7 @@ export function Header() {
               size="icon"
               className="md:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMobileMenuOpen ? (
                 <X className="h-5 w-5" />
@@ -92,7 +94,7 @@ export function Header() {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-md border-b shadow-lg">
+          <div className="md:hidden absolute top-full left-0 w-full glass-card border-b shadow-lg">
             <nav className="container mx-auto px-4 py-4 space-y-4">
               {navItems.map((item) => (
                 <Link
