@@ -24,20 +24,21 @@ export function Header() {
   }, [handleScroll])
 
   const navItems = [
-    { href: "/about", label: "About" },
-    { href: "/achievements", label: "Achievements" },
-    { href: "/blog", label: "Blog" },
+    { href: "/", label: "Home" },
+    { href: "/register", label: "Register" },
+    { href: "/guidebook", label: "Guidebook" },
     { href: "/contact", label: "Contact" },
   ]
 
   return (
     <header 
       className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-300",
+        "sticky top-0 z-50 w-full transition-all duration-300",
         isScrolled 
           ? "glass-card border-b shadow-lg" 
           : "bg-transparent"
       )}
+      style={{ position: 'sticky' }}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between" style={{ height: '90px' }}>
@@ -64,6 +65,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
+                className="relative group text-foreground/80 hover:text-foreground transition-colors duration-300 font-medium"
               >
                 {item.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-secondary transition-all duration-300 group-hover:w-full"></span>
@@ -74,6 +76,8 @@ export function Header() {
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
             <ModeToggle />
+            
+
 
             {/* Mobile menu button */}
             <Button

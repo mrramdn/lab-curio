@@ -82,54 +82,178 @@
 /* Glass morphism utilities */
 @layer utilities {
   .glass {
-    @apply bg-white/10 backdrop-blur-md border border-white/20;
+    @apply bg-white/30 backdrop-blur-lg border border-white/40 shadow-lg;
+    animation: pulse-glow 4s ease-in-out infinite;
   }
 
   .dark .glass {
-    @apply bg-black/10 border-white/10;
+    @apply bg-blue-950/30 backdrop-blur-lg border-white/10 shadow-lg;
   }
 
   .glass-card {
-    @apply bg-white/20 backdrop-blur-lg border border-white/30 shadow-xl;
+    @apply bg-white/40 backdrop-blur-xl border border-white/50 shadow-2xl;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  .glass-card:hover::before {
+    left: 100%;
   }
 
   .dark .glass-card {
-    @apply bg-black/20 border-white/20;
+    @apply bg-blue-950/40 backdrop-blur-xl border-white/15 shadow-2xl;
   }
 
   .glass-button {
-    @apply bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-all duration-300;
+    @apply bg-white/40 backdrop-blur-lg border border-white/50 hover:bg-white/50 transition-all duration-300 shadow-lg;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.3s;
+  }
+
+  .glass-button:hover::before {
+    left: 100%;
   }
 
   .dark .glass-button {
-    @apply bg-black/20 border-white/20 hover:bg-black/30;
+    @apply bg-blue-950/25 backdrop-blur-lg border-white/15 hover:bg-blue-950/35 shadow-lg;
+  }
+
+
+
+  /* Scroll Animation */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.3);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.5);
+  }
+
+  /* Dark theme scrollbar */
+  .dark ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.6);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.8);
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.3) hsl(var(--background));
+  }
+
+  .dark * {
+    scrollbar-color: hsl(var(--primary) / 0.6) hsl(var(--background));
+  }
+
+
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
   }
 }
 
 /* Optimized animations for production */
-@keyframes float {
 
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px hsl(var(--primary) / 0.3),
+      0 0 40px hsl(var(--primary) / 0.1),
+      inset 0 0 20px hsl(var(--primary) / 0.1);
   }
-
   50% {
-    transform: translateY(-20px) rotate(180deg);
+    box-shadow: 
+      0 0 40px hsl(var(--primary) / 0.6), 
+      0 0 60px hsl(var(--secondary) / 0.4),
+      0 0 80px hsl(var(--accent) / 0.2),
+      inset 0 0 30px hsl(var(--primary) / 0.2);
   }
 }
 
-@keyframes float-reverse {
-
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
   }
-
-  50% {
-    transform: translateY(20px) rotate(-180deg);
+  100% {
+    background-position: 200% 0;
   }
 }
+
+
 
 @keyframes gradient-shift {
   0% {
@@ -162,9 +286,21 @@
     background: hsl(var(--background));
   }
 
-  .floating-element,
-  .floating-element-reverse {
+
+  
+  .glass {
     animation: none;
+  }
+  
+  .glass-card::before,
+  .glass-button::before {
+    display: none;
+  }
+  
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 
