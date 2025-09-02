@@ -54,16 +54,7 @@ export default function ContactPage() {
               <div className="glass-card p-8 rounded-2xl">
                 <h2 className="text-2xl font-semibold mb-6">Contact Information</h2>
                 <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl glass-button flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-6 h-6 text-accent" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-1">Email</h3>
-                      <p className="text-foreground/70">info@labcurio.com</p>
-                      <p className="text-foreground/70">support@labcurio.com</p>
-                    </div>
-                  </div>
+                  
 
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-xl glass-button flex items-center justify-center flex-shrink-0">
@@ -71,8 +62,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Location</h3>
-                      <p className="text-foreground/70">University Campus</p>
-                      <p className="text-foreground/70">Innovation Lab Building</p>
+                      <p className="text-foreground/70">Binus @Bandung Paskal 23</p>
+                      <p className="text-foreground/70">Binus @Bandung Dago</p>
                     </div>
                   </div>
 
@@ -82,7 +73,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Phone</h3>
-                      <p className="text-foreground/70">+62 123 456 7890</p>
+                      <p className="text-foreground/70">+62 878-2251-0722</p>
                     </div>
                   </div>
 
@@ -91,9 +82,8 @@ export default function ContactPage() {
                       <Clock className="w-6 h-6 text-accent" />
                     </div>
                     <div>
-                      <h3 className="font-semibold mb-1">Office Hours</h3>
-                      <p className="text-foreground/70">Monday - Friday: 9:00 AM - 5:00 PM</p>
-                      <p className="text-foreground/70">Saturday: 10:00 AM - 2:00 PM</p>
+                      <h3 className="font-semibold mb-1">Gather Time</h3>
+                      <p className="text-foreground/70">TBA</p>
                     </div>
                   </div>
                 </div>
